@@ -14,7 +14,7 @@ import androidx.room.Update;
 @Dao
 public interface BookDao {
     @Insert
-    void insert(BookModel books);
+    long insert(BookModel books);
     @Insert
     void insert(List<BookModel> books);
 

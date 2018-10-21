@@ -1,6 +1,7 @@
 package com.example.abdullah.bookreader.data;
 
 import com.example.abdullah.bookreader.data.models.BookModel;
+import com.example.abdullah.bookreader.data.models.ShelfModel;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface Repository {
     //DELETE
     void deleteBook(BookModel bookModel);
     void deleteBookById(long id);
+
+    LiveData<List<ShelfModel>> getShelves();
 }

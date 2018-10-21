@@ -6,8 +6,11 @@ import com.example.abdullah.bookreader.data.AppRepository;
 import com.example.abdullah.bookreader.data.Repository;
 import com.example.abdullah.bookreader.data.database.AppDatabase;
 import com.example.abdullah.bookreader.data.models.BookModel;
+import com.example.abdullah.bookreader.data.models.ShelfBookJoinModel;
+import com.example.abdullah.bookreader.data.models.ShelfModel;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -34,7 +37,21 @@ public class InjectorUtils {
         }
 
         AppRepository repo = AppRepository.getInstance(database, executors);
-        provideAppExecutors().diskIO().execute(()-> repo.addBooks(temp));
+
+        provideAppExecutors().diskIO().execute(() ->{
+            for (int i = 1; i < 5; i++) {
+                ShelfModel model = new ShelfModel();
+                model.setName("Book Shelf " + i);
+                long sId = database.getShelfDao().insert(model);
+                for(int j = 0; j < new Random().nextInt(4) + 3; j++){
+                    BookModel book = new BookModel();
+                    book.setName("Book name " + i+j);
+                    long bId = database.getBookDao().insert(book);
+                    ShelfBookJoinModel m = new ShelfBookJoinModel(sId, bId);
+                    database.getShelfBookJoinDao().insert(m);
+                }
+            }
+        });
         return repo;
     }
 
