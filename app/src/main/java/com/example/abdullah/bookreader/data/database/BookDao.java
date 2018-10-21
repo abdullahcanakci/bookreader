@@ -14,13 +14,19 @@ import androidx.room.Update;
 @Dao
 public interface BookDao {
     @Insert
-    void insert(BookModel... bookModels);
+    void insert(BookModel books);
+    @Insert
+    void insert(List<BookModel> books);
 
     @Update
-    void update(BookModel... bookModels);
+    void update(BookModel books);
+    @Update
+    void update(List<BookModel> books);
 
     @Delete
-    void delete(BookModel... bookModels);
+    void delete(BookModel books);
+    @Delete
+    void delete(List<BookModel> books);
 
     /**
      * Gets everything in the database. Should only to be used as a debugging tool.

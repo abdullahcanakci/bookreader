@@ -29,12 +29,12 @@ public class InjectorUtils {
         for (int i = 0; i < 10; i++) {
             BookModel b = new BookModel();
             b.setId(UUID.randomUUID().getLeastSignificantBits());
-            b.setName("Book name " + i);
+            b.setName("Book name Book name" + i);
             temp.add(b);
         }
 
         AppRepository repo = AppRepository.getInstance(database, executors);
-        repo.addBooks(temp);
+        provideAppExecutors().diskIO().execute(()-> repo.addBooks(temp));
         return repo;
     }
 

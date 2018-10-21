@@ -53,7 +53,7 @@ public class AppRepository implements Repository{
 
     @Override
     public void addBooks(List<BookModel> bookModels) {
-        mBookDao.insert((BookModel[]) (bookModels.toArray()));
+        mBookDao.insert(bookModels);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AppRepository implements Repository{
 
     @Override
     public void updateBooks(List<BookModel> bookModels) {
-        mBookDao.update((BookModel[]) bookModels.toArray());
+        mBookDao.update(bookModels);
     }
 
     @Override
