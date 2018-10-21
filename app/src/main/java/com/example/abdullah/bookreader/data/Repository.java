@@ -1,5 +1,7 @@
 package com.example.abdullah.bookreader.data;
 
+import com.example.abdullah.bookreader.data.models.BookModel;
+
 import java.util.List;
 
 import androidx.lifecycle.LiveData;

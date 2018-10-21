@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.abdullah.bookreader.AppExecutors;
 import com.example.abdullah.bookreader.data.database.AppDatabase;
 import com.example.abdullah.bookreader.data.database.BookDao;
+import com.example.abdullah.bookreader.data.models.BookModel;
 
 import java.util.List;
 

@@ -3,14 +3,12 @@ package com.example.abdullah.bookreader;
 import android.content.Context;
 
 import com.example.abdullah.bookreader.data.AppRepository;
-import com.example.abdullah.bookreader.data.BookModel;
+import com.example.abdullah.bookreader.data.models.BookModel;
 import com.example.abdullah.bookreader.data.Repository;
 import com.example.abdullah.bookreader.data.database.AppDatabase;
 
 import java.util.ArrayList;
 import java.util.UUID;
-
-import androidx.room.ColumnInfo;
 
 /**
  * Class that holds injector methods

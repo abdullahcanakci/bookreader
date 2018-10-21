@@ -1,6 +1,6 @@
 package com.example.abdullah.bookreader.data.database;
 
-import com.example.abdullah.bookreader.data.BookModel;
+import com.example.abdullah.bookreader.data.models.BookModel;
 
 import java.util.List;
 

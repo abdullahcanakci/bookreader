@@ -2,7 +2,7 @@ package com.example.abdullah.bookreader.data.database;
 
 import android.content.Context;
 
-import com.example.abdullah.bookreader.data.BookModel;
+import com.example.abdullah.bookreader.data.models.BookModel;
 
 import androidx.room.Database;
 import androidx.room.Room;

@@ -1,4 +1,4 @@
-package com.example.abdullah.bookreader.data;
+package com.example.abdullah.bookreader.data.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
