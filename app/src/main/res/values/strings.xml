@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BookReader</string>
+    <string name="book_cover_description">Book Cover</string>
+    <string name="book_menu">Book menu</string>
 </resources>

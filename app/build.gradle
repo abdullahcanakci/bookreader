@@ -27,6 +27,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
 
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+
     def room_version = "2.1.0-alpha01"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
