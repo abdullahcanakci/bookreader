@@ -4,5 +4,7 @@ public interface MenuSelectionListener {
 
     void onShelfOpened(long shelfId);
     void onShelfEdited(long shelfId);
+
+    void onBookEdited(long id);
     void onBookOpened(long bookId);
 }

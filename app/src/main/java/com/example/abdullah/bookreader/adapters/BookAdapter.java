@@ -1,11 +1,15 @@
 package com.example.abdullah.bookreader.adapters;
 
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
+import com.example.abdullah.bookreader.InjectorUtils;
 import com.example.abdullah.bookreader.R;
 import com.example.abdullah.bookreader.data.models.BookModel;
 import com.example.abdullah.bookreader.databinding.CardBookBinding;
+import com.example.abdullah.bookreader.listeners.MenuSelectionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +20,34 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class BookAdapter extends RecyclerView.Adapter<BookHolder> {
     List<BookModel> books = new ArrayList<>();
+    MenuSelectionListener listener;
+
+    public BookAdapter() {
+        listener = InjectorUtils.provideMenuSelectionListener();
+    }
+
     @NonNull
     @Override
     public BookHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         CardBookBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.card_book, parent, false);
+        binding.menu.setOnClickListener((view) ->{
+            PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+            MenuInflater inflater = popupMenu.getMenuInflater();
+            inflater.inflate(R.menu.menu_book, popupMenu.getMenu());
+            popupMenu.show();
+            popupMenu.setOnMenuItemClickListener((menuItem)->{
+                if(listener != null)
+                switch (menuItem.getItemId()){
+                    case R.id.open:
+                        listener.onBookOpened(binding.getBook().getId());
+                        break;
+                    case R.id.edit:
+                        listener.onBookEdited(binding.getBook().getId());
+                        break;
+                }
+                return true;
+            });
+        });
         return new BookHolder(binding);
     }
 
@@ -36,5 +64,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookHolder> {
     @Override
     public int getItemCount() {
         return books.size();
+    }
+
+    public void setListener(MenuSelectionListener listener) {
+        this.listener = listener;
     }
 }

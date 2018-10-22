@@ -8,6 +8,7 @@ import com.example.abdullah.bookreader.data.database.AppDatabase;
 import com.example.abdullah.bookreader.data.models.BookModel;
 import com.example.abdullah.bookreader.data.models.ShelfBookJoinModel;
 import com.example.abdullah.bookreader.data.models.ShelfModel;
+import com.example.abdullah.bookreader.listeners.MenuSelectionListener;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -61,6 +62,15 @@ public class InjectorUtils {
 
     public static AppDatabase provideInRamAppDatabase(Context context){
         return AppDatabase.getInstance(context, false);
+    }
+
+    private static MenuSelectionListener sMenuSelectionListener= null;
+    public static void setMenuSelectionListener(MenuSelectionListener s) {
+        sMenuSelectionListener = s;
+    }
+
+    public static MenuSelectionListener provideMenuSelectionListener(){
+        return sMenuSelectionListener;
     }
 
     public static AppExecutors provideAppExecutors(){

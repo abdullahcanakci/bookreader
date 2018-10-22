@@ -19,11 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recycler = findViewById(R.id.canvas);
-        recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
-
-        ShelfAdapter adapter = new ShelfAdapter();
-        adapter.setOnMenuItemListener(new MenuSelectionListener() {
+        InjectorUtils.setMenuSelectionListener(new MenuSelectionListener() {
             @Override
             public void onShelfOpened(long shelfId) {
                 Log.d(TAG, "onShelfOpened: id: "+ shelfId);
@@ -35,10 +31,21 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onBookOpened(long bookId) {
+            public void onBookEdited(long id) {
+                Log.d(TAG, "onBookEdited: id" + id);
+            }
 
+            @Override
+            public void onBookOpened(long bookId) {
+                Log.d(TAG, "onBookOpened: id: " + bookId);
             }
         });
+
+        RecyclerView recycler = findViewById(R.id.canvas);
+        recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
+
+        ShelfAdapter adapter = new ShelfAdapter();
+
         recycler.setAdapter(adapter);
 
         Repository repo = InjectorUtils.provideDummyRepository(getApplicationContext());

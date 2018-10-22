@@ -4,4 +4,6 @@
     <string name="book_menu">Book menu</string>
     <string name="open_shelf">Open Shelf</string>
     <string name="edit_shelf">Edit Shelf</string>
+    <string name="open_book">Open Book</string>
+    <string name="edit_book">Edit Book</string>
 </resources>

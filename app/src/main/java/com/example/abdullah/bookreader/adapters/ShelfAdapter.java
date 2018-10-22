@@ -3,6 +3,7 @@ package com.example.abdullah.bookreader.adapters;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.example.abdullah.bookreader.InjectorUtils;
 import com.example.abdullah.bookreader.R;
 import com.example.abdullah.bookreader.data.models.ShelfModel;
 import com.example.abdullah.bookreader.databinding.CardShelfBinding;
@@ -12,13 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ShelfAdapter extends RecyclerView.Adapter<ShelfHolder> {
     List<ShelfModel> shelfs = new ArrayList<>();
     MenuSelectionListener listener;
+
+    public ShelfAdapter() {
+        listener = InjectorUtils.provideMenuSelectionListener();
+    }
+
     @NonNull
     @Override
     public ShelfHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -6,6 +6,9 @@
         <variable
             name="shelf"
             type="com.example.abdullah.bookreader.data.models.ShelfModel"/>
+        <variable
+            name="listener"
+            type="com.example.abdullah.bookreader.listeners.MenuSelectionListener"/>
     </data>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
