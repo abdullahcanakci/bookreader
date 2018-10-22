@@ -2,4 +2,6 @@
     <string name="app_name">BookReader</string>
     <string name="book_cover_description">Book Cover</string>
     <string name="book_menu">Book menu</string>
+    <string name="open_shelf">Open Shelf</string>
+    <string name="edit_shelf">Edit Shelf</string>
 </resources>

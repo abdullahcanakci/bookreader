@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface ShelfDao {
@@ -17,9 +18,15 @@ public interface ShelfDao {
     @Insert
     void insert(List<ShelfModel> models);
 
+    @Update
+    void update(ShelfModel model);
+
     @Query("SELECT * FROM shelfs")
     LiveData<List<ShelfModel>> getAllShelves();
 
     @Query("SELECT * FROM shelfs")
-    List<ShelfModel> getAllShelvesA();
+    List<ShelfModel> getAllShelvesSync();
+
+    @Query("SELECT * FROM shelfs WHERE id = :id")
+    LiveData<ShelfModel> getShelveById(long id);
 }

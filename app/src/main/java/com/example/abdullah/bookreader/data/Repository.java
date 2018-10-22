@@ -25,5 +25,26 @@ public interface Repository {
     void deleteBook(BookModel bookModel);
     void deleteBookById(long id);
 
-    LiveData<List<ShelfModel>> getShelves();
+    /**
+     * Returns all shelves and books for them only used by debug and development purposes
+     */
+    LiveData<List<ShelfModel>> getShelvesAndBooks();
+
+    /**
+     * Returns all shelves and 5 books for each shelf to display on the Shelf recycler
+     */
+    LiveData<List<ShelfModel>> getShelvesForDisplay();
+
+    /**
+     * Returns books for provided shelf id
+     */
+    LiveData<List<BookModel>> getBooksForShelf(long id);
+
+    /**
+     *
+     * @param books
+     * @param shelf
+     */
+    void addBooksToShelf(List<BookModel> books, ShelfModel shelf);
+    void addBookToShelf(BookModel book, ShelfModel shelf);
 }

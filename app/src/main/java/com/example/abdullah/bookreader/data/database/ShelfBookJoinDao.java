@@ -17,11 +17,19 @@ public interface ShelfBookJoinDao {
     @Insert
     void insert(ShelfBookJoinModel shelfBookJoin);
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM books INNER JOIN shelf_book_join ON " +
             "books.id=shelf_book_join.bookId WHERE " +
             "shelf_book_join.shelfId=:shelfId")
-    List<BookModel> getBooksForShelf(final long shelfId);
+    LiveData<List<BookModel>> getBooksForShelf(final long shelfId);
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT * FROM books INNER JOIN shelf_book_join ON " +
+            "books.id=shelf_book_join.bookId WHERE " +
+            "shelf_book_join.shelfId=:shelfId")
+    List<BookModel> getBooksForShelfSync(final long shelfId);
+
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM books INNER JOIN shelf_book_join ON " +
             "books.id=shelf_book_join.bookId WHERE " +
             "shelf_book_join.shelfId=:shelfId LIMIT :limit")

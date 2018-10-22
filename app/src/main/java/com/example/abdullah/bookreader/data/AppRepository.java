@@ -8,6 +8,7 @@ import com.example.abdullah.bookreader.data.database.BookDao;
 import com.example.abdullah.bookreader.data.database.ShelfBookJoinDao;
 import com.example.abdullah.bookreader.data.database.ShelfDao;
 import com.example.abdullah.bookreader.data.models.BookModel;
+import com.example.abdullah.bookreader.data.models.ShelfBookJoinModel;
 import com.example.abdullah.bookreader.data.models.ShelfModel;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.room.Transaction;
 
 public class AppRepository implements Repository{
     private static final String TAG = "AppRepository";
@@ -99,15 +101,58 @@ public class AppRepository implements Repository{
     }
 
     @Override
-    public LiveData<List<ShelfModel>> getShelves() {
+    public LiveData<List<ShelfModel>> getShelvesAndBooks() {
         MutableLiveData<List<ShelfModel>> models = new MutableLiveData<>();
         mExecutors.diskIO().execute(() -> {
-            List<ShelfModel> shelfModels = sShelfDao.getAllShelvesA();
+            List<ShelfModel> shelfModels = sShelfDao.getAllShelvesSync();
             for (ShelfModel m : shelfModels) {
-                m.setBooks(sShelfBookJoinModel.getBooksForShelf(m.getId()));
+                m.setBooks(sShelfBookJoinModel.getBooksForShelfSync(m.getId()));
             }
             models.postValue(shelfModels);
         });
         return models;
     }
+
+    @Override
+    public LiveData<List<ShelfModel>> getShelvesForDisplay() {
+        MutableLiveData<List<ShelfModel>> models = new MutableLiveData<>();
+        mExecutors.diskIO().execute(() -> {
+            List<ShelfModel> shelfModels = sShelfDao.getAllShelvesSync();
+            for (ShelfModel m : shelfModels) {
+                m.setBooks(sShelfBookJoinModel.getBooksForShelf(m.getId(), 5));
+            }
+            models.postValue(shelfModels);
+        });
+        return models;
+    }
+
+    @Override
+    public LiveData<List<BookModel>> getBooksForShelf(long id) {
+        return sShelfBookJoinModel.getBooksForShelf(id);
+    }
+
+    @Override
+    @Transaction
+    public void addBooksToShelf(List<BookModel> books, ShelfModel shelf) {
+        mExecutors.diskIO().execute(()->{
+            for(BookModel model: books){
+                ShelfBookJoinModel m = new ShelfBookJoinModel(shelf.getId(), model.getId());
+                sShelfBookJoinModel.insert(m);
+                shelf.setCount(shelf.getCount() + books.size());
+                sShelfDao.update(shelf);
+            }
+        });
+    }
+
+    @Override
+    public void addBookToShelf(BookModel book, ShelfModel shelf) {
+        mExecutors.diskIO().execute(()-> {
+            ShelfBookJoinModel m = new ShelfBookJoinModel(shelf.getId(), book.getId());
+            sShelfBookJoinModel.insert(m);
+            shelf.setCount(shelf.getCount() + 1);
+            sShelfDao.update(shelf);
+        });
+    }
+
+
 }

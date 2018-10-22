@@ -18,6 +18,9 @@ public class ShelfModel {
     @ColumnInfo(name = "title")
     private String mName;
 
+    @ColumnInfo(name = "count")
+    private int mCount;
+
     @Ignore
     List<BookModel> books;
 
@@ -28,9 +31,10 @@ public class ShelfModel {
     public ShelfModel() {
     }
 
-    public ShelfModel(long id, String name) {
+    public ShelfModel(long id, String name, int count) {
         mId = id;
         mName = name;
+        mCount = count;
     }
 
     public long getId() {
@@ -56,5 +60,13 @@ public class ShelfModel {
     public void setBooks(List<BookModel> books) {
         this.books = books;
         adapter.updateList(books);
+    }
+
+    public int getCount() {
+        return mCount;
+    }
+
+    public void setCount(int count) {
+        mCount = count;
     }
 }
