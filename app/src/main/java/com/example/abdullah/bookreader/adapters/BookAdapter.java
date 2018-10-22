@@ -3,13 +3,16 @@ package com.example.abdullah.bookreader.adapters;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 
+import com.bumptech.glide.Glide;
 import com.example.abdullah.bookreader.InjectorUtils;
 import com.example.abdullah.bookreader.R;
 import com.example.abdullah.bookreader.data.models.BookModel;
 import com.example.abdullah.bookreader.databinding.CardBookBinding;
 import com.example.abdullah.bookreader.listeners.MenuSelectionListener;
+import com.example.abdullah.bookreader.utils.GlideApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +57,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookHolder> {
     @Override
     public void onBindViewHolder(@NonNull BookHolder holder, int position) {
         holder.bind(books.get(position));
+        ImageView i = holder.getCoverView();
+        GlideApp.with(i).clear(i);
+        GlideApp
+                .with(i)
+                .load(R.drawable.cover)
+                .placeholder(R.drawable.placeholder_cover)
+                .into(i);
     }
 
     public void updateList(List<BookModel> books){

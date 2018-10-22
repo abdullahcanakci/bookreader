@@ -26,8 +26,7 @@
                 android:layout_width="100dp"
                 android:layout_height="160dp"
                 android:contentDescription="@string/book_cover_description"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cover" />
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/name"
