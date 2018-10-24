@@ -23,14 +23,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@{shelf.name}"
-                tools:title="Title" />
+                tools:title="Title"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:adapter="@{shelf.booksAdapter}"/>
+                android:adapter="@{shelf.booksAdapter}"
+                tools:listitem="@layout/card_book"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

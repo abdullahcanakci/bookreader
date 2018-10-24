@@ -8,6 +8,7 @@ import com.example.abdullah.bookreader.data.database.AppDatabase;
 import com.example.abdullah.bookreader.data.models.BookModel;
 import com.example.abdullah.bookreader.data.models.ShelfBookJoinModel;
 import com.example.abdullah.bookreader.data.models.ShelfModel;
+import com.example.abdullah.bookreader.factories.LandingPageViewModelFactory;
 import com.example.abdullah.bookreader.listeners.MenuSelectionListener;
 
 import java.util.ArrayList;
@@ -25,9 +26,15 @@ public class InjectorUtils {
         return AppRepository.getInstance(database, executors);
     }
 
+    private static boolean isRun = false;
     public static Repository provideDummyRepository(Context context){
         AppDatabase database = provideInRamAppDatabase(context);
         AppExecutors executors = provideAppExecutors();
+        AppRepository repo = AppRepository.getInstance(database, executors);
+        if(isRun){
+            return repo;
+        }
+        isRun = true;
 
         ArrayList<BookModel> temp = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -37,9 +44,9 @@ public class InjectorUtils {
             temp.add(b);
         }
 
-        AppRepository repo = AppRepository.getInstance(database, executors);
 
         provideAppExecutors().diskIO().execute(() ->{
+            Random r = new Random();
             for (int i = 1; i < 5; i++) {
                 ShelfModel model = new ShelfModel();
                 model.setName("Book Shelf " + i);
@@ -47,6 +54,10 @@ public class InjectorUtils {
                 for(int j = 0; j < new Random().nextInt(4) + 3; j++){
                     BookModel book = new BookModel();
                     book.setName("Book name " + i+j);
+                    long time = System.currentTimeMillis();
+                    book.setDate(time);
+                    book.setInteractionDate(time - (Math.abs(r.nextLong())%10000));
+                    book.setStatus(r.nextInt(100));
                     long bId = database.getBookDao().insert(book);
                     ShelfBookJoinModel m = new ShelfBookJoinModel(sId, bId);
                     database.getShelfBookJoinDao().insert(m);
@@ -75,5 +86,11 @@ public class InjectorUtils {
 
     public static AppExecutors provideAppExecutors(){
         return AppExecutors.getInstance();
+    }
+
+    public static LandingPageViewModelFactory provideLandingPageViewModeFactory(Context context) {
+        Repository repo = provideDummyRepository(context);
+        return new LandingPageViewModelFactory(context, repo);
+
     }
 }

@@ -39,4 +39,10 @@ public interface BookDao {
 
     @Query("SELECT * FROM books WHERE id IN (:ids)")
     LiveData<List<BookModel>> getBooksByIds(List<Long> ids);
+
+    @Query("SELECT * FROM books ORDER BY date DESC LIMIT 5")
+    LiveData<List<BookModel>> getAddedLast();
+
+    @Query("SELECT * FROM books ORDER BY interaction_date DESC LIMIT 5")
+    LiveData<List<BookModel>> getInteractedLast();
 }

@@ -7,6 +7,10 @@
         <variable
             name="book"
             type="com.example.abdullah.bookreader.data.models.BookModel" />
+        <variable
+            name="status"
+            type="com.example.abdullah.bookreader.helpers.ViewStatus"/>
+        <import type="android.view.View"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -23,10 +27,14 @@
 
             <ImageView
                 android:id="@+id/cover"
-                android:layout_width="100dp"
-                android:layout_height="160dp"
+                android:layout_width="80dp"
+                android:layout_height="120dp"
                 android:contentDescription="@string/book_cover_description"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                tools:src="@drawable/cover"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
                 android:id="@+id/name"

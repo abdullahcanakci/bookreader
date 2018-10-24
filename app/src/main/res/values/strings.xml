@@ -6,4 +6,8 @@
     <string name="edit_shelf">Edit Shelf</string>
     <string name="open_book">Open Book</string>
     <string name="edit_book">Edit Book</string>
+    <string name="last_added_books">New books…</string>
+    <string name="last_interacted_books">Last read…</string>
+    <string name="last_read_cover_background">Background</string>
+    <string name="last_read_cover">Last read book cover</string>
 </resources>

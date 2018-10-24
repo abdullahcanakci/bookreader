@@ -14,6 +14,18 @@ public class BookModel {
     @ColumnInfo(name = "name")
     private String mName;
 
+    @ColumnInfo(name = "date")
+    private long mDate;
+
+    @ColumnInfo(name = "interaction_date")
+    private long mInteractionDate;
+
+    @ColumnInfo(name = "status")
+    private int mStatus;
+
+    @ColumnInfo(name = "read_count")
+    private int mReadCount;
+
     @Ignore
     public BookModel() {
     }
@@ -37,5 +49,40 @@ public class BookModel {
 
     public void setName(String mName) {
         this.mName = mName;
+    }
+
+    public long getDate() {
+        return mDate;
+    }
+
+    public void setDate(long date) {
+        mDate = date;
+    }
+
+    public long getInteractionDate() {
+        return mInteractionDate;
+    }
+
+    public void setInteractionDate(long interactionDate) {
+        mInteractionDate = interactionDate;
+    }
+
+    public int getStatus() {
+        return mStatus;
+    }
+    public String getStatusText(){
+        return mStatus + "%";
+    }
+
+    public void setStatus(int status) {
+        mStatus = status;
+    }
+
+    public int getReadCount() {
+        return mReadCount;
+    }
+
+    public void setReadCount(int readCount) {
+        mReadCount = readCount;
     }
 }

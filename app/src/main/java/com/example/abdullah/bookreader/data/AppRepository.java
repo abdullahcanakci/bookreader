@@ -154,5 +154,15 @@ public class AppRepository implements Repository{
         });
     }
 
+    @Override
+    public LiveData<List<BookModel>> getAddedLast() {
+        return sBookDao.getAddedLast();
+    }
+
+    @Override
+    public LiveData<List<BookModel>> getInteractedLast() {
+        return sBookDao.getInteractedLast();
+    }
+
 
 }

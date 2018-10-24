@@ -2,6 +2,7 @@ package com.example.abdullah.bookreader.adapters;
 
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -11,6 +12,7 @@ import com.example.abdullah.bookreader.InjectorUtils;
 import com.example.abdullah.bookreader.R;
 import com.example.abdullah.bookreader.data.models.BookModel;
 import com.example.abdullah.bookreader.databinding.CardBookBinding;
+import com.example.abdullah.bookreader.helpers.ViewStatus;
 import com.example.abdullah.bookreader.listeners.MenuSelectionListener;
 import com.example.abdullah.bookreader.utils.GlideApp;
 
@@ -33,6 +35,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookHolder> {
     @Override
     public BookHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         CardBookBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.card_book, parent, false);
+        binding.setStatus(new ViewStatus());
         binding.menu.setOnClickListener((view) ->{
             PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
             MenuInflater inflater = popupMenu.getMenuInflater();

@@ -41,10 +41,11 @@ public interface Repository {
     LiveData<List<BookModel>> getBooksForShelf(long id);
 
     /**
-     *
-     * @param books
-     * @param shelf
+     * Insert into a shelf
      */
     void addBooksToShelf(List<BookModel> books, ShelfModel shelf);
     void addBookToShelf(BookModel book, ShelfModel shelf);
+
+    LiveData<List<BookModel>> getAddedLast();
+    LiveData<List<BookModel>> getInteractedLast();
 }

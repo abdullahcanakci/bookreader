@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="book"
+            type="com.example.abdullah.bookreader.data.models.BookModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mtrl_card_spacing">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/last_read_cover_background"
+                android:foreground="#e9151526"
+                android:scaleType="center"
+                android:scaleX="3"
+                android:scaleY="3"
+                android:src="@drawable/cover"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:src="@drawable/cover" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/last_read_cover"
+                android:scaleType="centerInside"
+                android:src="@drawable/cover"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/cover" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="160dp" />
+
+            <TextView
+                android:id="@+id/status_name"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="32dp"
+                android:text="@{book.name}"
+                android:textColor="@color/light_text_color"
+                android:textSize="20sp"
+                tools:text="Harry Potter and The Order of the Phoenix"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/divider"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/status_author"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:text="J.K. Rowling"
+                tools:text="J.K. Rowling"
+                android:textColor="@color/light_text_color"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/divider"
+                app:layout_constraintTop_toBottomOf="@id/status_name" />
+
+            <ProgressBar
+                android:id="@+id/status_progress"
+                style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:progress="@{book.status}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/status_text"
+                app:layout_constraintStart_toStartOf="@id/divider"
+                tools:progress="35" />
+
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@{book.getStatusText()}"
+                android:textColor="@color/light_text_color"
+                app:layout_constraintBottom_toBottomOf="@id/status_progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/status_progress"
+                tools:text="35%" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
