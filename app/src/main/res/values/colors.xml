@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="text_light">#616161</color>
     <color name="light_text_color">#fafafa</color>
+    <color name="main_text" >#424242</color>
+    <color name="light_text">#616161</color>
 </resources>

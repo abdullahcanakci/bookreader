@@ -8,6 +8,7 @@ import com.example.abdullah.bookreader.data.database.AppDatabase;
 import com.example.abdullah.bookreader.data.models.BookModel;
 import com.example.abdullah.bookreader.data.models.ShelfBookJoinModel;
 import com.example.abdullah.bookreader.data.models.ShelfModel;
+import com.example.abdullah.bookreader.factories.FileExplorerViewModelFactory;
 import com.example.abdullah.bookreader.factories.LandingPageViewModelFactory;
 import com.example.abdullah.bookreader.listeners.MenuSelectionListener;
 
@@ -92,5 +93,10 @@ public class InjectorUtils {
         Repository repo = provideDummyRepository(context);
         return new LandingPageViewModelFactory(context, repo);
 
+    }
+
+    public static FileExplorerViewModelFactory provideFileExplorerViewModelFactory(Context context) {
+        Repository repo = provideDummyRepository(context);
+        return new FileExplorerViewModelFactory(context, repo);
     }
 }
