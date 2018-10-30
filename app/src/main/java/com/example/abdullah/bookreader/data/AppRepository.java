@@ -5,9 +5,11 @@ import android.util.Log;
 import com.example.abdullah.bookreader.AppExecutors;
 import com.example.abdullah.bookreader.data.database.AppDatabase;
 import com.example.abdullah.bookreader.data.database.BookDao;
+import com.example.abdullah.bookreader.data.database.FileModelDao;
 import com.example.abdullah.bookreader.data.database.ShelfBookJoinDao;
 import com.example.abdullah.bookreader.data.database.ShelfDao;
 import com.example.abdullah.bookreader.data.models.BookModel;
+import com.example.abdullah.bookreader.data.models.FileModel;
 import com.example.abdullah.bookreader.data.models.ShelfBookJoinModel;
 import com.example.abdullah.bookreader.data.models.ShelfModel;
 
@@ -26,6 +28,7 @@ public class AppRepository implements Repository{
     private static BookDao sBookDao;
     private static ShelfDao sShelfDao;
     private static ShelfBookJoinDao sShelfBookJoinModel;
+    private final FileModelDao fileModelDao;
 
     private AppExecutors mExecutors;
 
@@ -38,6 +41,7 @@ public class AppRepository implements Repository{
         sBookDao = database.getBookDao();
         sShelfDao = database.getShelfDao();
         sShelfBookJoinModel = database.getShelfBookJoinDao();
+        this.fileModelDao = database.getFileModelDao();
     }
 
     /**
@@ -164,5 +168,22 @@ public class AppRepository implements Repository{
         return sBookDao.getInteractedLast();
     }
 
+    @Override
+    public LiveData<List<FileModel>> getFileModels() {
+        return fileModelDao.getFileModels();
+    }
 
+    @Override
+    public void deleteFileModels(List<FileModel> fileModelList) {
+        mExecutors.diskIO().execute(() -> {
+            fileModelDao.delete(fileModelList);
+        });
+    }
+
+    @Override
+    public void insertFileModels(List<FileModel> fileModelList) {
+        mExecutors.diskIO().execute(() -> {
+            fileModelDao.insert(fileModelList);
+        });
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.abdullah.bookreader.data;
 
 import com.example.abdullah.bookreader.data.models.BookModel;
+import com.example.abdullah.bookreader.data.models.FileModel;
 import com.example.abdullah.bookreader.data.models.ShelfModel;
 
 import java.util.List;
@@ -48,4 +49,8 @@ public interface Repository {
 
     LiveData<List<BookModel>> getAddedLast();
     LiveData<List<BookModel>> getInteractedLast();
+
+    LiveData<List<FileModel>> getFileModels();
+    void deleteFileModels(List<FileModel> fileModelList);
+    void insertFileModels(List<FileModel> fileModelList);
 }
