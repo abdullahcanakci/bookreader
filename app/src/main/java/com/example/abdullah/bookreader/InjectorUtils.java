@@ -11,6 +11,7 @@ import com.example.abdullah.bookreader.data.models.ShelfModel;
 import com.example.abdullah.bookreader.factories.FileExplorerViewModelFactory;
 import com.example.abdullah.bookreader.factories.LandingPageViewModelFactory;
 import com.example.abdullah.bookreader.listeners.MenuSelectionListener;
+import com.example.abdullah.bookreader.utils.NavigationHandler;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -98,5 +99,15 @@ public class InjectorUtils {
     public static FileExplorerViewModelFactory provideFileExplorerViewModelFactory(Context context) {
         Repository repo = provideDummyRepository(context);
         return new FileExplorerViewModelFactory(context, repo);
+    }
+
+    private static NavigationHandler navHandler = null;
+
+    public static void setNavigationHandler(NavigationHandler handler){
+        navHandler = handler;
+    }
+
+    public static NavigationHandler provideNavigationHandler(){
+        return navHandler;
     }
 }

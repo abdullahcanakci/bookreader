@@ -11,6 +11,9 @@ import com.example.abdullah.bookreader.R;
 import com.example.abdullah.bookreader.adapters.ExplorerAdapter;
 import com.example.abdullah.bookreader.data.models.FileModel;
 import com.example.abdullah.bookreader.factories.FileExplorerViewModelFactory;
+import com.example.abdullah.bookreader.helpers.FragmentType;
+import com.example.abdullah.bookreader.helpers.FragmentTypeInterface;
+import com.example.abdullah.bookreader.listeners.NavigationChild;
 import com.example.abdullah.bookreader.viewmodels.FileExplorerViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -25,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * This fragment is responsible for displaying any info produced by {@link FileExplorerViewModel}.
  */
-public class FileExplorerFragment extends Fragment {
+public class FileExplorerFragment extends Fragment implements NavigationChild, FragmentTypeInterface {
 
     private FileExplorerViewModel viewModel;
     private RecyclerView mRecyclerView;
@@ -46,7 +49,7 @@ public class FileExplorerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_file_explorer, container, false);
+        View view = inflater.inflate(R.layout.file_explorer_fragment, container, false);
         mRecyclerView = view.findViewById(R.id.recycler);
         ExplorerAdapter adapter = new ExplorerAdapter(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
@@ -95,5 +98,10 @@ public class FileExplorerFragment extends Fragment {
             mProgressBar.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public FragmentType getType() {
+        return FragmentType.EXPLORER_FRAGMENT;
     }
 }

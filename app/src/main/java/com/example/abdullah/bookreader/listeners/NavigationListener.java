@@ -1,12 +1,12 @@
 package com.example.abdullah.bookreader.listeners;
 
+
+import com.example.abdullah.bookreader.helpers.FragmentType;
+
 /**
- * Implemented by fragments that are handled by the {@link com.example.abdullah.bookreader.MainActivity}.
- * This interface is called whenever a navigation action is created.
- * if child fragments handle the action they should always return true,
- * otherwise {@link com.example.abdullah.bookreader.MainActivity} will handle the action
- *
+ * This interface is implemented by navigationManager and manages destinations,
+ * transitions etc
  */
 public interface NavigationListener {
-    boolean goBack();
+    void goTo(FragmentType type);
 }

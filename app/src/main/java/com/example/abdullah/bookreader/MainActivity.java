@@ -8,7 +8,10 @@ import android.widget.Toast;
 
 import com.example.abdullah.bookreader.data.Repository;
 import com.example.abdullah.bookreader.fragments.FileExplorerFragment;
+import com.example.abdullah.bookreader.helpers.FragmentType;
 import com.example.abdullah.bookreader.listeners.MenuSelectionListener;
+import com.example.abdullah.bookreader.listeners.NavigationListener;
+import com.example.abdullah.bookreader.utils.NavigationHandler;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,50 +24,29 @@ public class MainActivity extends AppCompatActivity{
     private static final int TAG_PERMISSION_EXTERNAL_READ = 101;
     private static String TAG = "MainActivity";
 
-    FileExplorerFragment explorer;
+    private FileExplorerFragment explorer;
+    private static NavigationHandler navigationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         requestPermissions();
-
-        InjectorUtils.setMenuSelectionListener(new MenuSelectionListener() {
-            @Override
-            public void onShelfOpened(long shelfId) {
-                Log.d(TAG, "onShelfOpened: id: "+ shelfId);
-            }
-
-            @Override
-            public void onShelfEdited(long shelfId) {
-                Log.d(TAG, "onShelfEdited: id: " + shelfId);
-            }
-
-            @Override
-            public void onBookEdited(long id) {
-                Log.d(TAG, "onBookEdited: id" + id);
-            }
-
-            @Override
-            public void onBookOpened(long bookId) {
-                Log.d(TAG, "onBookOpened: id: " + bookId);
-            }
-        });
-
         Repository repo = InjectorUtils.provideDummyRepository(getApplicationContext());
-        repo.getFileModels().observe(this, (files) -> {
-            if(!files.isEmpty()) {
-                Toast.makeText(this, "NumberOfItems: " + files.size(), Toast.LENGTH_SHORT).show();
-                repo.deleteFileModels(files);
-            }
-        });
-        explorer = FileExplorerFragment.getInstance();
-        getSupportFragmentManager().beginTransaction().add(R.id.canvas, explorer).commit();
+
+        InjectorUtils.setNavigationHandler(
+                new NavigationHandler(
+                        findViewById(R.id.canvas),
+                        getSupportFragmentManager()
+                )
+        );
+        navigationHandler = InjectorUtils.provideNavigationHandler();
+        ((NavigationListener) navigationHandler).goTo(FragmentType.LANDING_FRAGMENT);
     }
 
     @Override
     public void onBackPressed() {
-        if(explorer.goBack()){
+        if(navigationHandler.goBack()){
             return;
         }
         super.onBackPressed();

@@ -50,6 +50,9 @@ public class FileExplorerViewModel extends ViewModel {
            return false;
         }
         mStack.pop();
+        if(mStack.isEmpty()){
+            return false;
+        }
         changeDirectory(mStack.peek());
         return true;
     }
