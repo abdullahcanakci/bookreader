@@ -56,7 +56,6 @@ public class FileExplorerFragment extends Fragment implements NavigationChild, F
         //PERFORMANCE ENCHANTMENTS
         //60 frame to 40
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemViewCacheSize(100);
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.addItemDecoration(
                 new DividerItemDecoration(
@@ -70,7 +69,7 @@ public class FileExplorerFragment extends Fragment implements NavigationChild, F
         });
         FloatingActionButton button = view.findViewById(R.id.fab_confirm);
 
-
+        //Confirm selection
         button.setOnClickListener((v) -> {
             viewModel.pushSelectedItemsToRepository();
         });

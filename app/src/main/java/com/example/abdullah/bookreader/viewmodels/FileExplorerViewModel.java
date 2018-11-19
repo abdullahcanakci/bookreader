@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.example.abdullah.bookreader.AppExecutors;
+import com.example.abdullah.bookreader.InjectorUtils;
 import com.example.abdullah.bookreader.data.Repository;
 import com.example.abdullah.bookreader.data.models.FileModel;
 import com.example.abdullah.bookreader.helpers.FileManager;
@@ -19,13 +20,11 @@ import androidx.lifecycle.ViewModel;
 
 public class FileExplorerViewModel extends ViewModel {
     private final Repository repo;
-    private Context mContext;
     private Stack<String> mStack = new Stack<>();
     public String mStartPath;
     private MutableLiveData<List<FileModel>>  mFileList;
     private FileManager mManager;
     public FileExplorerViewModel(Context context, Repository repo) {
-        this.mContext = context;
         this.repo = repo;
         mStartPath = Environment.getExternalStorageDirectory().getPath();
         mFileList = new MutableLiveData<>();
@@ -43,7 +42,7 @@ public class FileExplorerViewModel extends ViewModel {
 
     /**
      * Goes back 1 level on the stack
-     * @return true if back traversel is succeded
+     * @return true if back traversel is succeeded
      */
     public boolean goBack(){
         if(mStack.isEmpty()){
@@ -96,5 +95,6 @@ public class FileExplorerViewModel extends ViewModel {
             if(!files.isEmpty())
                 repo.insertFileModels(files);
         });
+        InjectorUtils.provideNavigationHandler().popFragment();
     }
 }

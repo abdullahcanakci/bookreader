@@ -8,11 +8,16 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.abdullah.bookreader.data.Repository;
+import com.example.abdullah.bookreader.data.models.BookModel;
+import com.example.abdullah.bookreader.data.models.FileModel;
 import com.example.abdullah.bookreader.fragments.FileExplorerFragment;
+import com.example.abdullah.bookreader.helpers.FileSelectionHelper;
 import com.example.abdullah.bookreader.helpers.FragmentType;
 import com.example.abdullah.bookreader.listeners.MenuSelectionListener;
 import com.example.abdullah.bookreader.listeners.NavigationListener;
 import com.example.abdullah.bookreader.utils.NavigationHandler;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,13 +33,14 @@ public class MainActivity extends AppCompatActivity{
 
     private FileExplorerFragment explorer;
     private static NavigationHandler navigationHandler;
+    private Repository repo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         requestPermissions();
-        Repository repo = InjectorUtils.provideDummyRepository(getApplicationContext());
+        repo = InjectorUtils.provideDummyRepository(getApplicationContext());
 
         InjectorUtils.setNavigationHandler(
                 new NavigationHandler(
@@ -44,6 +50,27 @@ public class MainActivity extends AppCompatActivity{
         );
         navigationHandler = InjectorUtils.provideNavigationHandler();
         ((NavigationListener) navigationHandler).goTo(FragmentType.LANDING_FRAGMENT);
+        
+        repo.getFileModels().observe(this, (files) -> {
+            handleFileInput(files);
+        });
+    }
+
+    /**
+     * This will be called when user selects files and confirms their selection.
+     * App should confirm they are legit files that can be handled and
+     * handles {@link FileModel} -> {@link BookModel} conversion and
+     * @param models selected by user
+     */
+    private void handleFileInput(List<FileModel> models){
+        if(models != null && !models.isEmpty()){
+            List<BookModel> books = FileSelectionHelper.convertToBookModels(models);
+            if(books == null || books.isEmpty()){
+                Toast.makeText(this, R.string.book_import_empty, Toast.LENGTH_SHORT).show();
+            } else {
+                repo.addBooks(books);
+            }
+        }
     }
 
     @Override

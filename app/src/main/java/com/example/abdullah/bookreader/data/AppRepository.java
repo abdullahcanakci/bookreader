@@ -62,12 +62,16 @@ public class AppRepository implements Repository{
 
     @Override
     public void addBook(BookModel bookModel) {
-        sBookDao.insert(bookModel);
+        mExecutors.diskIO().execute(() -> {
+            sBookDao.insert(bookModel);
+        });
     }
 
     @Override
     public void addBooks(List<BookModel> bookModels) {
-        sBookDao.insert(bookModels);
+        mExecutors.diskIO().execute(() -> {
+            sBookDao.insert(bookModels);
+        });
     }
 
     @Override

@@ -81,4 +81,9 @@ public class NavigationHandler implements NavigationListener {
 
         goToFragment(f);
     }
+
+    public void popFragment() {
+        fragments.pop();
+        changeFragment(fragments.peek());
+    }
 }

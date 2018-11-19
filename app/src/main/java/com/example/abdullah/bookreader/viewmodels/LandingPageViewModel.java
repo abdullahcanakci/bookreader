@@ -10,15 +10,11 @@ import com.example.abdullah.bookreader.data.models.ShelfModel;
 import androidx.lifecycle.ViewModel;
 
 public class LandingPageViewModel extends ViewModel {
-    private final Context mContext;
-    private final Repository mRepository;
     private ShelfModel mAddedLast = new ShelfModel();
     private ShelfModel mInteractedLast = new ShelfModel();
     private BookModel mReadLast = new BookModel();
 
     public LandingPageViewModel(Context context, Repository repository) {
-        mContext = context;
-        mRepository = repository;
         String add = context.getResources().getString(R.string.last_added_books);
         String read = context.getResources().getString(R.string.last_interacted_books);
         mAddedLast.setName(add);

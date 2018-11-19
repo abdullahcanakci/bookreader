@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FileManager {
-    private ArrayList<String> extensions = new ArrayList<>(Arrays.asList("epub", "mobi", "pdf"));
+    private static ArrayList<String> extensions = new ArrayList<>(Arrays.asList("epub", "mobi", "pdf"));
 
     public FileManager() {}
 
@@ -34,7 +34,7 @@ public class FileManager {
         return subFiles;
     }
 
-    private static String getFileExtension(String name) {
+    public static String getFileExtension(String name) {
         int index = name.lastIndexOf(".");
         if (index == -1) {
             return "";
@@ -42,7 +42,7 @@ public class FileManager {
         return name.substring(index + 1);
     }
 
-    private boolean validExtension(String ext) {
+    public static boolean validExtension(String ext) {
         if (extensions == null) {
             return true;
         }
