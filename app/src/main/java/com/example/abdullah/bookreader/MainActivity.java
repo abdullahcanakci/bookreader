@@ -1,6 +1,7 @@
 package com.example.abdullah.bookreader;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment;
 public class MainActivity extends AppCompatActivity{
     private static final int TAG_PERMISSION_EXTERNAL_WRITE = 100;
     private static final int TAG_PERMISSION_EXTERNAL_READ = 101;
+    private static final int PERMISSION_ALL = 99;
     private static String TAG = "MainActivity";
 
     private FileExplorerFragment explorer;
@@ -52,17 +54,27 @@ public class MainActivity extends AppCompatActivity{
         super.onBackPressed();
     }
 
+    private boolean hasPermissions(Context context, String... permissions){
+        if(context != null && permissions != null){
+            for(String permission: permissions){
+                if(ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     private void requestPermissions(){
-        if(ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    TAG_PERMISSION_EXTERNAL_WRITE);
+        String[] PERMISSIONS = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+
+        if(!hasPermissions(this, PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
-        if(ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    TAG_PERMISSION_EXTERNAL_READ);
-        }
+
     }
 
     @Override
