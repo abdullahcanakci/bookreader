@@ -11,4 +11,5 @@
     <string name="last_read_cover_background">Background</string>
     <string name="last_read_cover">Last read book cover</string>
     <string name="file_icon_description">File icon</string>
+    <string name="book_import_empty">Selected books can not be imported.</string>
 </resources>

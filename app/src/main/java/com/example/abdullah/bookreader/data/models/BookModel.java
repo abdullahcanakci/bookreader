@@ -14,14 +14,27 @@ public class BookModel {
     @ColumnInfo(name = "name")
     private String mName;
 
+    /**
+     * Date of publishing
+     */
     @ColumnInfo(name = "date")
     private long mDate;
 
+    /**
+     * Last date of interaction by user.
+     * New books are tagged by date of add
+     */
     @ColumnInfo(name = "interaction_date")
     private long mInteractionDate;
 
+    /**
+     * Status flag for book
+     */
     @ColumnInfo(name = "status")
     private int mStatus;
+
+    @ColumnInfo(name = "file_path")
+    private String mPath;
 
     @ColumnInfo(name = "read_count")
     private int mReadCount;
@@ -84,5 +97,13 @@ public class BookModel {
 
     public void setReadCount(int readCount) {
         mReadCount = readCount;
+    }
+
+    public String getPath() {
+        return mPath;
+    }
+
+    public void setPath(String Path) {
+        this.mPath = Path;
     }
 }
