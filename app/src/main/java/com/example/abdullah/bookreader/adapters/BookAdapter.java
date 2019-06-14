@@ -65,7 +65,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookHolder> {
         GlideApp
                 .with(i)
                 .load(R.drawable.cover)
-                .placeholder(R.drawable.placeholder_cover)
+                .placeholder(R.drawable.cover)
                 .into(i);
     }
 
