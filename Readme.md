@@ -11,5 +11,5 @@ This app should use, Room, Livedata, Databinding and MVVM architecture.
 
 ![Main Screen](/Screenshots/Screenshot.png?raw=true "Main Screen")
 
-![Carousels](/Screenshots/Screenshot_1.png?raw=true "Carousels")
+![Carousels](/Screenshots/Screenshot_1.png?raw=true"Carousels")
 
